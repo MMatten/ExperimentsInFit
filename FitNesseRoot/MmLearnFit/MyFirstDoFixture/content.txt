@@ -1,0 +1,24 @@
+!path lib/*.jar
+
+Start the page with a DoFixture
+
+!|MMLearnFit.MyFirstDoFixture|
+
+Tables call methods of the DoFixture - simple name, no args.
+
+!|myFirstMethod|
+
+Table rows call methods of the DoFixture - complex names (even cells), odd cells are args to the methods.
+
+!|myFirst|1234|Funny Name Method|abcd|
+|myFirst|5678|Funny Name Method|defg|
+
+Methods that return fit.Fixture or subtypes create/execute other fixtures - in this case the method returns a OsCommandLineFixture object (based on Uncle Bob's command line fixture).
+The subsequent rows of the table are handled by this fixture object.
+
+|myFixtureSpawningMethod|
+|command|cmd /c dir c:\|0|
+
+Methods that are not part of the DoFixture or the object delegated as the System Under Test are other fixtures that are created before control returns to the DoFixture.
+
+!|SomeOtherFixture|abc|def|123|
